@@ -13,7 +13,8 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">Saldos</div>
-                        <table class="table mb-0">
+                        <div class="table-responsive">
+                                                <table class="table mb-0">
                             <thead>
                                 <tr><th>Participante</th><th class="text-end">Saldo</th></tr>
                             </thead>
@@ -30,6 +31,7 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
 

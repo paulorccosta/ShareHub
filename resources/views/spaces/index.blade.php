@@ -14,7 +14,8 @@
             </div>
 
             <div class="card">
-                <table class="table table-hover mb-0">
+                <div class="table-responsive">
+                                <table class="table table-hover mb-0">
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -47,6 +48,7 @@
                         @endforelse
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

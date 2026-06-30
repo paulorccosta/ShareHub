@@ -67,7 +67,8 @@
                         </div>
 
                         <h6 class="mt-4">Participantes</h6>
-                        <table class="table">
+                        <div class="table-responsive">
+                                                <table class="table">
                             <thead>
                                 <tr>
                                     <th>Participa</th>
@@ -91,6 +92,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        </div>
 
                         <button type="submit" class="btn btn-primary">Salvar</button>
                         <a href="{{ route('spaces.show', $space) }}" class="btn btn-link">Cancelar</a>

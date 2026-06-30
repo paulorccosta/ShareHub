@@ -67,7 +67,8 @@
                             <span>Despesas</span>
                             <a href="{{ route('spaces.expenses.create', $space) }}" class="btn btn-sm btn-primary">Nova despesa</a>
                         </div>
-                        <table class="table mb-0">
+                        <div class="table-responsive">
+                                                <table class="table mb-0">
                             <thead>
                                 <tr>
                                     <th>Descrição</th>
@@ -91,6 +92,7 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -18,7 +18,8 @@
             </ul>
 
             <div class="card">
-                <table class="table table-hover mb-0 align-middle">
+                <div class="table-responsive">
+                                <table class="table table-hover mb-0 align-middle">
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -50,6 +51,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
 
             <div class="mt-3">

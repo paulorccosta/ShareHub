@@ -36,7 +36,8 @@
                     </dl>
 
                     <h6>Participantes</h6>
-                    <table class="table">
+                    <div class="table-responsive">
+                                        <table class="table">
                         <thead>
                             <tr><th>Nome</th><th class="text-end">Parte devida</th></tr>
                         </thead>
@@ -49,6 +50,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
 
                     <a href="{{ route('spaces.expenses.edit', [$space, $expense]) }}" class="btn btn-outline-secondary">Editar</a>
                     <form action="{{ route('spaces.expenses.destroy', [$space, $expense]) }}" method="POST" class="d-inline" onsubmit="return confirm('Remover esta despesa?');">
