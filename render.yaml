@@ -47,8 +47,9 @@ services:
         value: stack
       - key: LOG_LEVEL
         value: error
+      # Switch FILESYSTEM_DISK to "s3" once Supabase Storage credentials below are filled in.
       - key: FILESYSTEM_DISK
-        value: s3
+        value: local
       - key: AWS_ACCESS_KEY_ID
         sync: false
       - key: AWS_SECRET_ACCESS_KEY
