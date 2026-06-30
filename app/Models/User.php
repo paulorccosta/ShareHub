@@ -49,6 +49,15 @@ class User extends Authenticatable
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::creating(function (User $user) {
+            if (static::count() === 0) {
+                $user->is_admin = true;
+            }
+        });
+    }
+
     public function ownedSpaces()
     {
         return $this->hasMany(Space::class, 'owner_id');
