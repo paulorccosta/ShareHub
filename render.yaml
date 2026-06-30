@@ -1,23 +1,15 @@
 # Render.com deployment config for ShareHub (Laravel 12 / PHP 8.2).
 #
-# NOTE: Render's native PHP runtime support varies. This config uses a generic
-# "web" service with explicit build/start commands, which works on Render's
-# PHP-capable runtimes. For a more robust production setup, consider switching
-# to `env: docker` with an nginx + php-fpm image instead of `php artisan serve`
-# (the built-in artisan server is single-threaded and not meant for production
-# traffic at scale, but it is sufficient to get a working deployment running).
+# Render has no native PHP runtime, so this uses a Docker build (see ./Dockerfile)
+# with Apache + PHP-FPM-style mod_php. The Dockerfile builds Vite assets in a
+# Node stage, then installs PHP deps and serves via Apache on Render's $PORT.
 
 services:
   - type: web
     name: sharehub
-    env: php
+    env: docker
+    dockerfilePath: ./Dockerfile
     plan: free
-    buildCommand: >
-      composer install --no-dev --optimize-autoloader &&
-      npm install &&
-      npm run build &&
-      php artisan config:cache
-    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
     envVars:
       - key: APP_NAME
         value: ShareHub
@@ -29,6 +21,8 @@ services:
         sync: false
       - key: APP_URL
         sync: false
+      - key: RUN_MIGRATIONS
+        value: true
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
@@ -41,6 +35,18 @@ services:
         sync: false
       - key: DB_PASSWORD
         sync: false
+      - key: DB_SSLMODE
+        value: require
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
+      - key: LOG_CHANNEL
+        value: stack
+      - key: LOG_LEVEL
+        value: error
       - key: FILESYSTEM_DISK
         value: s3
       - key: AWS_ACCESS_KEY_ID
