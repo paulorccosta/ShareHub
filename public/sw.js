@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sharehub-cache-v1';
+const CACHE_NAME = 'sharehub-cache-v2';
 const STATIC_ASSETS = [
     '/manifest.json',
 ];
