@@ -1,0 +1,57 @@
+# Render.com deployment config for ShareHub (Laravel 12 / PHP 8.2).
+#
+# NOTE: Render's native PHP runtime support varies. This config uses a generic
+# "web" service with explicit build/start commands, which works on Render's
+# PHP-capable runtimes. For a more robust production setup, consider switching
+# to `env: docker` with an nginx + php-fpm image instead of `php artisan serve`
+# (the built-in artisan server is single-threaded and not meant for production
+# traffic at scale, but it is sufficient to get a working deployment running).
+
+services:
+  - type: web
+    name: sharehub
+    env: php
+    plan: free
+    buildCommand: >
+      composer install --no-dev --optimize-autoloader &&
+      npm install &&
+      npm run build &&
+      php artisan config:cache
+    startCommand: php artisan serve --host=0.0.0.0 --port=$PORT
+    envVars:
+      - key: APP_NAME
+        value: ShareHub
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: FILESYSTEM_DISK
+        value: s3
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_DEFAULT_REGION
+        value: us-east-1
+      - key: AWS_BUCKET
+        sync: false
+      - key: AWS_ENDPOINT
+        sync: false
+      - key: AWS_USE_PATH_STYLE_ENDPOINT
+        value: true
