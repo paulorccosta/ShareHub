@@ -39,6 +39,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/users/create', [AdminController::class, 'createUserForm'])->name('users.create');
+    Route::post('/users', [AdminController::class, 'storeUser'])->name('users.store');
     Route::post('/users/{user}/promote', [AdminController::class, 'promoteUser'])->name('users.promote');
     Route::post('/users/{user}/demote', [AdminController::class, 'demoteUser'])->name('users.demote');
     Route::delete('/users/{user}', [AdminController::class, 'destroyUser'])->name('users.destroy');

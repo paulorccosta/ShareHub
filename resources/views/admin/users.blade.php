@@ -11,11 +11,14 @@
                 <div class="alert alert-success">{{ session('status') }}</div>
             @endif
 
-            <ul class="nav nav-pills mb-4">
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}">Visão geral</a></li>
-                <li class="nav-item"><a class="nav-link active" href="{{ route('admin.users') }}">Usuários</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.spaces') }}">Espaços</a></li>
-            </ul>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <ul class="nav nav-pills mb-0">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}">Visão geral</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{ route('admin.users') }}">Usuários</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.spaces') }}">Espaços</a></li>
+                </ul>
+                <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Novo usuário</a>
+            </div>
 
             <div class="card">
                 <table class="table table-hover mb-0 align-middle">

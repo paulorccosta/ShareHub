@@ -7,6 +7,7 @@ use App\Models\Expense;
 use App\Models\Space;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
 
 class AdminController extends Controller
 {
@@ -27,6 +28,33 @@ class AdminController extends Controller
         $users = User::withCount(['ownedSpaces', 'memberships'])->orderBy('name')->paginate(20);
 
         return view('admin.users', compact('users'));
+    }
+
+    public function createUserForm()
+    {
+        return view('admin.users-create');
+    }
+
+    public function storeUser(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => ['required', 'confirmed', Password::defaults()],
+            'is_admin' => 'sometimes|boolean',
+        ]);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => $validated['password'],
+        ]);
+
+        if ($request->boolean('is_admin')) {
+            $user->forceFill(['is_admin' => true])->save();
+        }
+
+        return redirect()->route('admin.users')->with('status', "Usuário {$user->name} criado.");
     }
 
     public function promoteUser(Request $request, User $user)
