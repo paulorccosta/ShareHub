@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
@@ -27,6 +28,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/spaces/{space}/rateio', [RateioController::class, 'show'])->name('rateio.show');
 
     Route::post('/spaces/{space}/settlements', [SettlementController::class, 'store'])->name('spaces.settlements.store');
+
+    Route::resource('events', EventController::class)->except(['show']);
 });
 
 Route::middleware('auth')->group(function () {

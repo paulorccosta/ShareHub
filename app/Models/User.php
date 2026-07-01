@@ -77,4 +77,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Expense::class);
     }
+
+    public function createdEvents()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_participants')->withPivot('viewed_at')->withTimestamps();
+    }
+
+    public function unreadEventsCount(): int
+    {
+        return $this->events()->wherePivotNull('viewed_at')->count();
+    }
 }
