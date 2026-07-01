@@ -15,36 +15,68 @@
             @endif
 
             <div class="row g-3 mb-4">
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-6 col-lg-3">
                     <div class="card text-bg-primary h-100">
-                        <div class="card-body">
-                            <div class="small">Espaços</div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center" style="aspect-ratio: 1 / 1;">
+                            <i class="bi bi-houses fs-1 mb-2"></i>
                             <div class="fs-2 fw-bold">{{ $totalSpaces }}</div>
+                            <div class="small">Espaços</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-6 col-lg-3">
                     <div class="card text-bg-success h-100">
-                        <div class="card-body">
-                            <div class="small">Eventos abertos</div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center" style="aspect-ratio: 1 / 1;">
+                            <i class="bi bi-flag fs-1 mb-2"></i>
                             <div class="fs-2 fw-bold">{{ $openEventsCount }}</div>
+                            <div class="small">Eventos abertos</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-6 col-lg-3">
                     <div class="card text-bg-warning h-100">
-                        <div class="card-body">
-                            <div class="small">Gasto no mês</div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center" style="aspect-ratio: 1 / 1;">
+                            <i class="bi bi-cash-stack fs-1 mb-2"></i>
                             <div class="fs-2 fw-bold">R$ {{ number_format($monthTotal, 2, ',', '.') }}</div>
+                            <div class="small">Gasto no mês</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                <div class="col-6 col-lg-3">
                     <div class="card {{ $overallBalance >= 0 ? 'text-bg-info' : 'text-bg-danger' }} h-100">
-                        <div class="card-body">
-                            <div class="small">Seu saldo geral</div>
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center text-center" style="aspect-ratio: 1 / 1;">
+                            <i class="bi bi-wallet2 fs-1 mb-2"></i>
                             <div class="fs-2 fw-bold">R$ {{ number_format($overallBalance, 2, ',', '.') }}</div>
+                            <div class="small">Seu saldo geral</div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-calendar3 me-1"></i> Próximos eventos</span>
+                            <a href="{{ route('events.index') }}" class="btn btn-sm btn-outline-primary" title="Ver calendário completo">
+                                <i class="bi bi-calendar3"></i> Ver calendário
+                            </a>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            @forelse ($upcomingEvents as $event)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="{{ route('events.edit', $event) }}" class="text-decoration-none">{{ $event->title }}</a>
+                                    <span class="text-muted small">
+                                        {{ $event->start_at->format('d/m/Y') }}
+                                        @if (! $event->all_day)
+                                            {{ $event->start_at->format('H:i') }}
+                                        @endif
+                                    </span>
+                                </li>
+                            @empty
+                                <li class="list-group-item text-muted">Nenhum evento agendado.</li>
+                            @endforelse
+                        </ul>
                     </div>
                 </div>
             </div>

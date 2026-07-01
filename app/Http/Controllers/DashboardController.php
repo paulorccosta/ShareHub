@@ -47,6 +47,12 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
+        $upcomingEvents = $user->events()
+            ->where('start_at', '>=', now())
+            ->orderBy('start_at')
+            ->limit(3)
+            ->get();
+
         return view('dashboard', [
             'totalSpaces' => $totalSpaces,
             'openEventsCount' => $openEventsCount,
@@ -54,6 +60,7 @@ class DashboardController extends Controller
             'overallBalance' => $overallBalance,
             'openSpaces' => $openSpaces,
             'latestExpenses' => $latestExpenses,
+            'upcomingEvents' => $upcomingEvents,
         ]);
     }
 }
